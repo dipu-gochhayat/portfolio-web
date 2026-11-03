@@ -31,7 +31,7 @@ export const portfolioData = {
     location: "Bhubaneswar, Odisha, India",
     status: "Available for Opportunities",
     email: "alex.morgan.dev@example.com",
-    photoUrl: "/avatar.svg",
+    photoUrl: "/profile.png",
     resumeUrl: "#resume",
     socials: {
       github: "https://github.com",

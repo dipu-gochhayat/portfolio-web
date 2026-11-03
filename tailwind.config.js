@@ -8,10 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#090d16',
-        surface: '#0f172a',
-        'surface-card': '#131e36',
-        'surface-border': '#1e293b',
+        background: '#030303',
+        surface: '#080808',
+        'surface-card': '#0c0c0c',
+        'surface-border': '#18181b',
+        muted: '#71717a',
         primary: {
           50: '#eef2ff',
           100: '#e0e7ff',
@@ -22,32 +23,24 @@ export default {
           600: '#4f46e5',
           700: '#4338ca',
         },
-        cyan: {
-          400: '#22d3ee',
-          500: '#06b6d4',
-        },
-        emerald: {
-          400: '#34d399',
-          500: '#10b981',
-        }
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        serif: ['Instrument Serif', 'Georgia', 'serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       animation: {
-        'spin-slow': 'spin 12s linear infinite',
-        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-        'float': 'float 6s ease-in-out infinite',
+        'photo-float': 'photoFloat 6s ease-in-out infinite',
+        'pulse-subtle': 'pulseSubtle 4s ease-in-out infinite',
       },
       keyframes: {
-        pulseGlow: {
-          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
-        },
-        float: {
+        photoFloat: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        pulseSubtle: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.75' },
         }
       }
     },

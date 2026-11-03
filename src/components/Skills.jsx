@@ -1,88 +1,77 @@
 import React from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { Code, BookOpen, Database, Globe, Wrench, Sparkles, CheckCircle } from 'lucide-react';
+import { Code, BookOpen, Database, Globe, Wrench, ArrowUpRight } from 'lucide-react';
 
-const categoryIcons = {
-  "Programming": Code,
-  "Core Computer Science": BookOpen,
-  "Databases": Database,
-  "Web Technologies": Globe,
-  "Tools & Environments": Wrench
-};
+const categoryNumberMap = ['01', '02', '03', '04', '05'];
 
 export default function Skills() {
   const categories = portfolioData.skillCategories;
 
   return (
-    <section id="skills" className="py-24 relative bg-grid-pattern">
+    <section id="skills" className="py-28 relative bg-[#030303] border-b border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono font-medium">
-            <Sparkles className="w-3.5 h-3.5" />
-            Technical Foundation
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Skills & Knowledge Base
+        {/* Section Label */}
+        <div className="section-label">
+          <span>03 / How I Think & Work</span>
+          <span>Depth Meets Perspective</span>
+        </div>
+
+        {/* Editorial Heading */}
+        <div className="max-w-3xl mb-16 space-y-4">
+          <h2 className="text-4xl sm:text-6xl font-medium tracking-tight text-white leading-[1.08]">
+            How I work.<br />
+            <span className="font-serif-italic text-zinc-300 font-normal">
+              From logic to reliable systems.
+            </span>
           </h2>
-          <p className="text-base text-slate-400">
-            A structured breakdown of programming languages, foundational computer science subjects, and developer tools.
+          <p className="text-base sm:text-lg text-zinc-400 font-normal">
+            A solid computational foundation organized into functional disciplines: programming, core algorithms, database schemas, and developer tooling.
           </p>
         </div>
 
-        {/* Categories Grid */}
+        {/* Categories Grid (Clean editorial cards, NO fake percentages) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((cat, idx) => {
-            const Icon = categoryIcons[cat.category] || Code;
-            const isFullWidthOnLarge = idx === 4; // Tools & Environments can span or fit nicely
-
-            return (
-              <div
-                key={cat.category}
-                className={`p-6 sm:p-7 rounded-2xl bg-[#0c1426]/75 border border-slate-800/90 hover:border-slate-700 backdrop-blur-md transition-all duration-300 flex flex-col justify-between group ${
-                  isFullWidthOnLarge ? 'md:col-span-2 lg:col-span-1' : ''
-                }`}
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-xs font-mono text-slate-400 bg-slate-900 px-2.5 py-1 rounded-full border border-slate-800">
-                      {cat.skills.length} competencies
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-indigo-200 transition-colors">
-                      {cat.category}
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1 leading-normal">
-                      {cat.description}
-                    </p>
-                  </div>
-
-                  {/* Skills badges (NO fake percentages) */}
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {cat.skills.map((skill) => (
-                      <div
-                        key={skill}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700/70 text-xs font-medium text-slate-200 hover:border-cyan-500/40 hover:text-white transition-colors"
-                      >
-                        <CheckCircle className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                        <span>{skill}</span>
-                      </div>
-                    ))}
-                  </div>
+          {categories.map((cat, idx) => (
+            <div
+              key={cat.category}
+              className={`p-8 rounded-2xl bg-[#080808] border border-white/[0.08] hover:border-white/[0.18] transition-colors flex flex-col justify-between space-y-6 ${
+                idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''
+              }`}
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-zinc-500 pb-2 border-b border-white/[0.08]">
+                  <span>{categoryNumberMap[idx]} / {cat.category}</span>
+                  <span className="text-zinc-400">{cat.skills.length} skills</span>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-slate-800/60 text-[11px] font-mono text-slate-400">
-                  Verified coursework & project practice
+                <h3 className="text-xl font-medium text-white">
+                  {cat.category}
+                </h3>
+
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  {cat.description}
+                </p>
+
+                {/* Skills Chips */}
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {cat.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 rounded-lg text-xs font-mono bg-zinc-900/90 border border-zinc-800 text-zinc-200"
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
               </div>
-            );
-          })}
+
+              <div className="pt-4 border-t border-white/[0.08] text-[11px] font-mono text-zinc-400 flex items-center justify-between">
+                <span>Verified Coursework</span>
+                <span className="text-zinc-400">NIT Bhubaneswar ↗</span>
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>

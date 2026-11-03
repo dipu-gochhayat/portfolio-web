@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Send, Download, Mail, Terminal, Sparkles, Shield, Code, Cpu, Award } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Award, Shield, Code2, MapPin } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, TwitterIcon } from './SocialIcons';
 import { portfolioData } from '../data/portfolioData';
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
-  const [imgError, setImgError] = useState(false);
   const roles = portfolioData.personal.roles;
 
   useEffect(() => {
@@ -16,215 +15,148 @@ export default function Hero() {
   }, [roles.length]);
 
   return (
-    <section id="home" className="relative min-h-[92vh] pt-32 pb-20 flex items-center justify-center overflow-x-clip bg-grid-pattern">
-      {/* Refined ambient glow effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-cyan-500/15 rounded-full blur-[110px] pointer-events-none animate-ambient-glow" />
-      <div className="absolute top-1/3 -left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
+    <section id="home" className="relative min-h-screen pt-32 pb-16 flex flex-col justify-between overflow-x-clip bg-grid-editorial z-10">
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
+        
+        {/* Topline Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4 py-3 border-b border-white/[0.08] text-xs font-mono tracking-widest text-zinc-400 mb-12 sm:mb-16 uppercase">
+          <div className="flex items-center gap-2">
+            <span className="live-dot" />
+            <span className="text-zinc-300">Aspiring Software Developer</span>
+            <span className="text-zinc-600 hidden sm:inline">·</span>
+            <span className="text-zinc-500 hidden sm:inline">Java & Backend Architecture</span>
+          </div>
+          <div>
+            <span>Based in Bhubaneswar · Thinking Beyond</span>
+          </div>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        {/* Main Grid: Headline on Left, Subtle Side Note on Right allowing background photo to shine */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* Left Column: Name & Details */}
-          <div className="lg:col-span-7 text-left space-y-6">
+          {/* Left Column: Primary Typography & Callouts */}
+          <div className="lg:col-span-8 space-y-7">
             
-            {/* Status chip */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/70 shadow-lg shadow-black/20 backdrop-blur-md">
-              <span className="flex h-2.5 w-2.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <span className="text-xs font-mono font-medium text-emerald-400">
-                {portfolioData.personal.status}
-              </span>
-              <span className="text-slate-600">•</span>
-              <span className="text-xs text-slate-400 font-medium hidden sm:inline">
-                {portfolioData.personal.location}
-              </span>
+            {/* Kicker */}
+            <div className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-400">
+              A Human Perspective on Technology
             </div>
 
-            {/* Main Greeting & Headline with Name as Primary Highlight */}
+            {/* Headline with Signature Italic Serif */}
             <div className="space-y-3">
-              <p className="text-sm sm:text-base font-mono text-cyan-400 font-medium tracking-wide">
-                Hi, my name is
-              </p>
-              
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                {portfolioData.personal.name}
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-medium tracking-tight text-white leading-[1.02]">
+                Dipu{' '}
+                <span className="font-serif-italic text-zinc-300 font-normal">
+                  Gochhayat
+                </span>
               </h1>
 
-              {/* Dynamic Role Rotator */}
-              <div className="h-10 sm:h-12 flex items-center">
-                <div className="inline-flex items-center gap-2 text-xl sm:text-2xl lg:text-3xl font-semibold text-gradient-primary">
-                  <span className="text-slate-500 font-mono font-normal">&gt;</span>
-                  <span className="transition-all duration-300">
-                    {roles[roleIndex]}
-                  </span>
-                  <span className="animate-pulse text-indigo-400 font-mono">_</span>
-                </div>
+              {/* Dynamic Subtitle Rotator */}
+              <div className="flex items-center gap-2 text-base sm:text-xl font-mono text-zinc-400 pt-1">
+                <span className="text-zinc-600">&gt;</span>
+                <span className="text-zinc-200">{roles[roleIndex]}</span>
+                <span className="animate-pulse text-indigo-400 font-mono">_</span>
               </div>
             </div>
 
-            {/* Subtitle / Value proposition */}
-            <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
-              {portfolioData.personal.tagline}
+            {/* Description */}
+            <p className="text-base sm:text-lg text-zinc-300 max-w-xl leading-relaxed font-normal">
+              Computer Science student at Nalanda Institute of Technology, Bhubaneswar. Turning ideas into resilient software, exploring cybersecurity, and building practical systems for real-world impact.
             </p>
 
-            {/* Quick Education Callout */}
-            <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 max-w-xl flex items-center gap-3 text-xs sm:text-sm text-slate-300">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shrink-0">
-                <Terminal className="w-4 h-4" />
-              </div>
-              <p>
-                <strong className="text-white">B.Tech CSE</strong> @ Nalanda Institute of Technology, Bhubaneswar <span className="text-cyan-400 font-mono">(Graduating 2028 • CGPA: 8.15)</span>
-              </p>
-            </div>
-
-            {/* Call to Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-5 pt-3">
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-cyan-500 hover:opacity-95 shadow-lg shadow-indigo-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base"
+                className="pill-link"
               >
-                <span>Explore My Work</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Explore my work</span>
+                <ArrowDown className="w-4 h-4" />
               </a>
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-slate-200 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 transition-all transform hover:-translate-y-0.5 text-sm sm:text-base"
+                className="text-link text-sm"
               >
-                <span>Let's Connect</span>
-                <Send className="w-4 h-4 text-cyan-400" />
+                <span>Start a conversation</span>
+                <ArrowUpRight className="w-4 h-4 text-zinc-400" />
               </a>
             </div>
 
-            {/* Social Links & Trust row */}
-            <div className="pt-6 border-t border-slate-800/80 flex flex-wrap items-center gap-5">
-              <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
-                Find me on:
-              </span>
-              <div className="flex items-center gap-3">
+            {/* Social Links Row */}
+            <div className="pt-6 border-t border-white/[0.08] flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-zinc-400">
+              <span className="text-zinc-500">Connect:</span>
+              <div className="flex items-center gap-4">
                 <a
                   href={portfolioData.personal.socials.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-white hover:border-indigo-500/50 hover:bg-slate-800 transition-all"
-                  aria-label="GitHub Profile"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  <GithubIcon className="w-4 h-4" />
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>GitHub</span>
                 </a>
                 <a
                   href={portfolioData.personal.socials.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-white hover:border-indigo-500/50 hover:bg-slate-800 transition-all"
-                  aria-label="LinkedIn Profile"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  <LinkedinIcon className="w-4 h-4" />
+                  <LinkedinIcon className="w-3.5 h-3.5" />
+                  <span>LinkedIn</span>
                 </a>
                 <a
                   href={portfolioData.personal.socials.twitter}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-white hover:border-indigo-500/50 hover:bg-slate-800 transition-all"
-                  aria-label="Twitter Profile"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  <TwitterIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href={portfolioData.personal.socials.email}
-                  className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-white hover:border-indigo-500/50 hover:bg-slate-800 transition-all"
-                  aria-label="Email Me"
-                >
-                  <Mail className="w-4 h-4" />
+                  <TwitterIcon className="w-3.5 h-3.5" />
+                  <span>Twitter</span>
                 </a>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Professional Photo with Floating Effect */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative animate-photo-float">
-              
-              {/* Backlight Ambient Glow */}
-              <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-indigo-500/30 via-purple-500/20 to-cyan-400/30 blur-2xl opacity-70 group-hover:opacity-100 transition-opacity" />
-
-              {/* Photo Frame Container */}
-              <div className="relative w-72 sm:w-80 md:w-96 rounded-3xl p-1 bg-gradient-to-b from-indigo-500/40 via-slate-800/80 to-cyan-500/40 shadow-2xl shadow-black/80">
-                <div className="relative w-full h-[360px] sm:h-[420px] rounded-[22px] overflow-hidden bg-[#0c1426] flex flex-col items-center justify-center">
-                  
-                  {!imgError ? (
-                    <img
-                      src={portfolioData.personal.photoUrl}
-                      alt={portfolioData.personal.name}
-                      onError={() => setImgError(true)}
-                      className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    /* Stylized Developer Avatar Fallback if photo not yet uploaded */
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-4 bg-gradient-to-b from-[#0e172e] to-[#070c18]">
-                      {/* Initials Badge */}
-                      <div className="w-28 h-28 rounded-full bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-400 p-[2px] shadow-xl shadow-indigo-500/30">
-                        <div className="w-full h-full rounded-full bg-[#090d16] flex items-center justify-center">
-                          <span className="text-3xl font-bold font-mono text-gradient-primary">
-                            DG
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="space-y-1">
-                        <h3 className="text-xl font-bold text-white">
-                          Dipu Gochhayat
-                        </h3>
-                        <p className="text-xs text-cyan-400 font-mono">
-                          Aspiring Software Developer
-                        </p>
-                      </div>
-
-                      <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
-                        Computer Science Engineering student at Nalanda Institute of Technology, Bhubaneswar.
-                      </p>
-
-                      <div className="pt-2 flex items-center gap-2 text-[11px] font-mono text-indigo-300 bg-indigo-950/40 border border-indigo-800/40 px-3 py-1.5 rounded-full">
-                        <Code className="w-3.5 h-3.5" />
-                        Java • Backend • CyberSec
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Subtle gradient overlay at bottom of photo */}
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#090d16] via-[#090d16]/60 to-transparent pointer-events-none" />
-
-                  {/* Corner Label */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-slate-300 bg-[#090d16]/80 backdrop-blur-md px-3.5 py-2 rounded-xl border border-slate-800/80">
-                    <span className="flex items-center gap-1.5 text-white font-medium">
-                      <Award className="w-3.5 h-3.5 text-amber-400" />
-                      NIT Bhubaneswar
-                    </span>
-                    <span className="text-cyan-400 font-semibold">
-                      Class of 2028
-                    </span>
-                  </div>
-
-                </div>
+          {/* Right Column: Editorial Side Note widget (Sarthak Sharma style) */}
+          <div className="lg:col-span-4 flex justify-start lg:justify-end">
+            <div className="hidden lg:flex flex-col justify-between h-72 p-6 rounded-2xl bg-black/40 backdrop-blur-md border border-white/[0.08] text-xs font-mono uppercase tracking-widest text-zinc-400 max-w-xs w-full shadow-2xl">
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+                <span>01 / Presence</span>
+                <span className="text-emerald-400 flex items-center gap-1">
+                  <span className="live-dot" /> Online
+                </span>
               </div>
 
-              {/* Floating Tech Badges */}
-              <div className="absolute -top-4 -left-6 px-3 py-1.5 rounded-xl bg-slate-900/95 border border-indigo-500/40 shadow-xl shadow-indigo-500/10 flex items-center gap-2 backdrop-blur-md hidden sm:flex">
-                <Code className="w-4 h-4 text-indigo-400" />
-                <span className="text-xs font-mono font-medium text-white">Java Dev</span>
+              <div className="space-y-1.5 text-zinc-300">
+                <div className="text-white font-medium">Software Engineering</div>
+                <div>Java & Backend Systems</div>
+                <div>Cybersecurity Auditing</div>
               </div>
 
-              <div className="absolute -bottom-4 -right-4 px-3.5 py-1.5 rounded-xl bg-slate-900/95 border border-cyan-500/40 shadow-xl shadow-cyan-500/10 flex items-center gap-2 backdrop-blur-md hidden sm:flex">
-                <Shield className="w-4 h-4 text-cyan-400" />
-                <span className="text-xs font-mono font-medium text-white">Cybersecurity</span>
+              <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between text-[11px] text-zinc-400">
+                <span>NIT Bhubaneswar</span>
+                <span className="text-zinc-300">Class of '28</span>
               </div>
-
             </div>
           </div>
 
+        </div>
+
+      </div>
+
+      {/* Hero Bottom Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-10 border-t border-white/[0.08] mt-12">
+        <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono uppercase tracking-widest text-zinc-400">
+          <a href="#about" className="hover:text-white transition-colors flex items-center gap-2">
+            <span className="w-4 h-[1px] bg-zinc-600 inline-block" />
+            <span>Scroll to discover</span>
+            <ArrowDown className="w-3.5 h-3.5" />
+          </a>
+          <span className="hidden sm:inline">Building & Solving Since 2024</span>
+          <span className="text-zinc-300">CGPA: 8.15 ↗</span>
         </div>
       </div>
     </section>

@@ -1,134 +1,193 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { GraduationCap, Target, Compass, Sparkles, MapPin, Award, CheckCircle2, ShieldCheck, Code2, Server } from 'lucide-react';
+import { ArrowUpRight, GraduationCap, Target, Compass, Award, MapPin, CheckCircle2 } from 'lucide-react';
+
+const perspectives = [
+  {
+    id: 'build',
+    label: 'Build',
+    title: 'Architect reliable software.',
+    description: 'Developing high-performance backend systems and clean, object-oriented Java solutions that turn abstract ideas into dependable software.',
+    focusArea: 'Java · Object-Oriented Design · Backend APIs · MySQL'
+  },
+  {
+    id: 'protect',
+    label: 'Protect',
+    title: 'Investigate digital footprints.',
+    description: 'Exploring cybersecurity defenses, OSINT analysis, and identity exposure auditing through tools like Kali Linux and proactive vulnerability awareness.',
+    focusArea: 'Cybersecurity · OSINT Tools · Digital Footprints · Kali Linux'
+  },
+  {
+    id: 'solve',
+    label: 'Solve',
+    title: 'Master computational foundations.',
+    description: 'Approaching real-world problems through data structures, algorithmic efficiency, and core computer science fundamentals.',
+    focusArea: 'DSA · OOP · DBMS · Operating Systems · Computer Networks'
+  }
+];
 
 export default function About() {
+  const [activeTab, setActiveTab] = useState(0);
+  const currentPerspective = perspectives[activeTab];
   const { education, primaryFocus, interests, bio } = portfolioData.personal;
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden">
-      {/* Background radial accent */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-indigo-600/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-cyan-600/5 rounded-full blur-3xl pointer-events-none" />
-
+    <section id="about" className="py-28 relative bg-[#030303] border-b border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-medium">
-            <Sparkles className="w-3.5 h-3.5" />
-            About Me
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Curious Learner & Problem Solver
-          </h2>
-          <p className="text-base text-slate-400">
-            A snapshot of my academic journey, technical direction, and software engineering interests.
-          </p>
+        {/* Section Label */}
+        <div className="section-label">
+          <span>01 / The Person Behind The Work</span>
+          <span>A Connected Perspective</span>
         </div>
 
-        {/* Bio Spotlight Banner */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#0c1426] via-[#101935] to-[#0c1426] border border-slate-800/80 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
-            <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 p-[1px] shrink-0">
-                <div className="w-full h-full bg-[#090d16] rounded-xl flex items-center justify-center">
-                  <Code2 className="w-6 h-6 text-cyan-400" />
-                </div>
-              </div>
-              <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-                "{bio}"
-              </p>
+        {/* Editorial Heading & Perspective Switcher */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
+          
+          {/* Left Column: Editorial Statement & Bio */}
+          <div className="lg:col-span-7 space-y-6">
+            <h2 className="text-4xl sm:text-6xl font-medium tracking-tight text-white leading-[1.08]">
+              Technology is<br />
+              the starting point.<br />
+              <span className="font-serif-italic text-zinc-300 font-normal">
+                People are the point.
+              </span>
+            </h2>
+
+            <p className="text-lg sm:text-xl text-zinc-300 font-normal leading-relaxed pt-2">
+              {bio}
+            </p>
+
+            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl">
+              Studying at Nalanda Institute of Technology, Bhubaneswar with a strong dedication to software architecture, hackathon innovation, and digital defense.
+            </p>
+
+            <div className="flex items-center gap-6 pt-4 text-xs font-mono uppercase tracking-widest text-zinc-400">
+              <span>Engineering Mind.</span>
+              <span>•</span>
+              <span>Builder's Drive.</span>
+              <span>•</span>
+              <span>Security Instinct.</span>
             </div>
           </div>
+
+          {/* Right Column: Interactive Perspective Explorer (Sarthak style) */}
+          <div className="lg:col-span-5 p-7 rounded-2xl bg-[#090909] border border-white/[0.08] space-y-6">
+            <div className="flex items-center justify-between text-xs font-mono uppercase tracking-wider text-zinc-400 pb-3 border-b border-white/[0.08]">
+              <span>Three Disciplines. One Perspective.</span>
+              <span className="text-zinc-500">0{activeTab + 1} / 03</span>
+            </div>
+
+            {/* Perspective Selector Pills */}
+            <div className="flex items-center gap-2">
+              {perspectives.map((p, idx) => (
+                <button
+                  key={p.id}
+                  onClick={() => setActiveTab(idx)}
+                  className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                    activeTab === idx
+                      ? 'bg-white text-black font-semibold'
+                      : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800'
+                  }`}
+                >
+                  {p.label} ↗
+                </button>
+              ))}
+            </div>
+
+            {/* Perspective Content Card */}
+            <div className="space-y-3 py-2 animate-in fade-in duration-300 key={currentPerspective.id}">
+              <h3 className="text-xl font-medium text-white">
+                {currentPerspective.title}
+              </h3>
+              <p className="text-sm text-zinc-400 leading-relaxed">
+                {currentPerspective.description}
+              </p>
+              <div className="pt-2 text-xs font-mono text-indigo-400">
+                {currentPerspective.focusArea}
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/[0.08] text-xs font-mono text-zinc-400">
+              Click a discipline above to explore my focus.
+            </div>
+          </div>
+
         </div>
 
-        {/* 3 Visually Balanced Cards: Education, Primary Focus, Areas of Interest */}
+        {/* 3 Balanced Cards: Education, Primary Focus, Areas of Interest */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
           {/* Card 1: Education */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-[#0c1426]/75 border border-slate-800 hover:border-indigo-500/40 backdrop-blur-md transition-all duration-300 flex flex-col justify-between group">
+          <div className="p-7 rounded-2xl bg-[#080808] border border-white/[0.08] hover:border-white/[0.18] transition-colors flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:scale-105 transition-transform">
-                <GraduationCap className="w-6 h-6" />
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono uppercase tracking-widest text-zinc-400">01 / Education</span>
+                <GraduationCap className="w-5 h-5 text-indigo-400" />
               </div>
-
-              <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-medium">Academics</span>
-                <h3 className="text-xl font-bold text-white mt-0.5">Education</h3>
-              </div>
-
-              <div className="space-y-2 text-sm text-slate-300">
-                <p className="font-semibold text-white">
-                  {education.degree}
-                </p>
-                <p className="text-slate-400 text-xs sm:text-sm">
-                  {education.college}
-                </p>
-                <div className="flex items-center gap-1.5 text-xs text-slate-400 pt-1">
-                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                  <span>{education.location}</span>
-                </div>
+              <h3 className="text-xl font-medium text-white">
+                {education.degree}
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                {education.college}
+              </p>
+              <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-400">
+                <MapPin className="w-3.5 h-3.5 text-zinc-400" />
+                <span>{education.location}</span>
               </div>
             </div>
 
-            <div className="pt-5 mt-5 border-t border-slate-800/80 flex items-center justify-between">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium">
+            <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
+              <span className="text-emerald-400 font-semibold flex items-center gap-1">
                 <Award className="w-3.5 h-3.5" />
                 CGPA: {education.cgpa}
               </span>
-              <span className="text-xs font-mono text-slate-400">
-                Graduating: {education.graduation}
+              <span className="text-zinc-400">
+                Class of {education.graduation}
               </span>
             </div>
           </div>
 
           {/* Card 2: Primary Focus */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-[#0c1426]/75 border border-slate-800 hover:border-indigo-500/40 backdrop-blur-md transition-all duration-300 flex flex-col justify-between group">
+          <div className="p-7 rounded-2xl bg-[#080808] border border-white/[0.08] hover:border-white/[0.18] transition-colors flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
-                <Target className="w-6 h-6" />
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono uppercase tracking-widest text-zinc-400">02 / Primary Focus</span>
+                <Target className="w-5 h-5 text-cyan-400" />
               </div>
-
-              <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-medium">Engineering</span>
-                <h3 className="text-xl font-bold text-white mt-0.5">Primary Focus</h3>
-              </div>
-
+              <h3 className="text-xl font-medium text-white">
+                Engineering & Architecture
+              </h3>
               <div className="space-y-2.5">
-                {primaryFocus.map((focus) => (
-                  <div key={focus} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span>{focus}</span>
+                {primaryFocus.map((item) => (
+                  <div key={item} className="flex items-start gap-2 text-xs sm:text-sm text-zinc-300">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                    <span>{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="pt-5 mt-5 border-t border-slate-800/80 text-xs text-slate-400 font-mono flex items-center gap-1.5">
-              <Server className="w-3.5 h-3.5 text-indigo-400" />
-              Robust, maintainable software design
+            <div className="pt-4 border-t border-white/[0.08] text-xs font-mono text-zinc-400">
+              Clean code & reliable execution
             </div>
           </div>
 
           {/* Card 3: Areas of Interest */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-[#0c1426]/75 border border-slate-800 hover:border-indigo-500/40 backdrop-blur-md transition-all duration-300 flex flex-col justify-between group">
+          <div className="p-7 rounded-2xl bg-[#080808] border border-white/[0.08] hover:border-white/[0.18] transition-colors flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform">
-                <Compass className="w-6 h-6" />
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono uppercase tracking-widest text-zinc-400">03 / Exploration</span>
+                <Compass className="w-5 h-5 text-purple-400" />
               </div>
-
-              <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-purple-400 font-medium">Exploration</span>
-                <h3 className="text-xl font-bold text-white mt-0.5">Areas of Interest</h3>
-              </div>
-
+              <h3 className="text-xl font-medium text-white">
+                Areas of Interest
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {interests.map((interest) => (
                   <span
                     key={interest}
-                    className="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700/80 text-slate-200 hover:border-indigo-500/50 hover:text-white transition-colors"
+                    className="px-3 py-1.5 rounded-lg text-xs font-mono bg-zinc-900 border border-zinc-800 text-zinc-300"
                   >
                     {interest}
                   </span>
@@ -136,9 +195,8 @@ export default function About() {
               </div>
             </div>
 
-            <div className="pt-5 mt-5 border-t border-slate-800/80 text-xs text-slate-400 font-mono flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
-              Security awareness & digital systems
+            <div className="pt-4 border-t border-white/[0.08] text-xs font-mono text-zinc-400">
+              Problem solving & cybersecurity
             </div>
           </div>
 
