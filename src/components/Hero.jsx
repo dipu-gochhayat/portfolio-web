@@ -1,164 +1,161 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowDown, ArrowUpRight, Award, Shield, Code2, MapPin } from 'lucide-react';
-import { GithubIcon, LinkedinIcon, TwitterIcon } from './SocialIcons';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const roles = portfolioData.personal.roles;
+  const [photoOpacity, setPhotoOpacity] = useState(1);
+  const [translateY, setTranslateY] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 3200);
-    return () => clearInterval(timer);
-  }, [roles.length]);
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      // Fades out completely within 65% of viewport scroll
+      const fadeDistance = window.innerHeight * 0.65;
+      const currentOpacity = Math.max(0, 1 - scrollY / fadeDistance);
+      setPhotoOpacity(currentOpacity);
+      setTranslateY(scrollY * 0.16); // subtle downward parallax
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <section id="home" className="relative min-h-screen pt-32 pb-16 flex flex-col justify-between overflow-x-clip bg-grid-editorial z-10">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
-        
-        {/* Topline Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 py-3 border-b border-white/[0.08] text-xs font-mono tracking-widest text-zinc-400 mb-12 sm:mb-16 uppercase">
+    <section
+      id="home"
+      className="relative min-h-screen pt-28 sm:pt-32 pb-8 flex flex-col justify-between overflow-hidden bg-[#030303] select-none"
+    >
+      {/* 4-Column Editorial Vertical Grid Lines (Exact Sarthak style) */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(255, 255, 255, 0.032) 1px, transparent 1px)',
+          backgroundSize: '25% 100%',
+          maskImage:
+            'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Topline Bar */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        <div className="flex items-center justify-between py-3 border-b border-white/[0.08] text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase text-zinc-400">
           <div className="flex items-center gap-2">
-            <span className="live-dot" />
-            <span className="text-zinc-300">Aspiring Software Developer</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#ff8c59] shadow-[0_0_8px_#ff8c59] inline-block animate-pulse" />
+            <span className="text-zinc-200">Aspiring Software Developer</span>
             <span className="text-zinc-600 hidden sm:inline">·</span>
             <span className="text-zinc-500 hidden sm:inline">Java & Backend Architecture</span>
           </div>
           <div>
-            <span>Based in Bhubaneswar · Thinking Beyond</span>
+            <span className="text-zinc-400">Based in Bhubaneswar · Thinking Beyond</span>
           </div>
         </div>
+      </div>
 
-        {/* Main Grid: Headline on Left, Subtle Side Note on Right allowing background photo to shine */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
-          {/* Left Column: Primary Typography & Callouts */}
-          <div className="lg:col-span-8 space-y-7">
-            
-            {/* Kicker */}
-            <div className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-400">
-              A Human Perspective on Technology
-            </div>
+      {/* Left Margin Presence Note (Far left margin - never covers the portrait) */}
+      <div
+        className="hidden lg:flex flex-col gap-4 absolute left-6 xl:left-12 top-[48%] -translate-y-1/2 z-20 font-mono text-left pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="text-[10px] tracking-[0.22em] uppercase text-[#ff8c59] font-medium">
+          01 / PRESENCE
+        </div>
+        <div className="text-[#ff8c59] text-base leading-none font-light select-none">+</div>
+        <div className="flex flex-col gap-1.5 text-[9px] xl:text-[10px] tracking-[0.18em] uppercase text-zinc-400">
+          <span>ENGINEERING</span>
+          <span>BACKEND SYSTEMS</span>
+          <span>PROBLEM SOLVING</span>
+        </div>
+      </div>
 
-            {/* Headline with Signature Italic Serif */}
-            <div className="space-y-3">
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-medium tracking-tight text-white leading-[1.02]">
-                Dipu{' '}
-                <span className="font-serif-italic text-zinc-300 font-normal">
-                  Gochhayat
-                </span>
-              </h1>
+      {/* Centered Backdrop Portrait (Exact Sarthak style - centered horizontally, behind headline) */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-10 sm:top-14 md:top-16 w-[340px] sm:w-[440px] md:w-[490px] lg:w-[530px] aspect-[4/5] pointer-events-none select-none z-0 will-change-transform transition-opacity duration-75 ease-out"
+        style={{
+          opacity: photoOpacity,
+          transform: `translate3d(-50%, ${translateY}px, 0)`,
+        }}
+        aria-hidden="true"
+      >
+        <div className="relative w-full h-full">
+          <img
+            src="/profile-transparent.png"
+            alt="Dipu Gochhayat"
+            className="w-full h-full object-cover object-top filter brightness-[0.93] contrast-[1.05]"
+          />
+          {/* Bottom feathering gradient into #030303 so the suit dissolves into black */}
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#030303] via-[#030303]/85 to-transparent" />
+        </div>
+      </div>
 
-              {/* Dynamic Subtitle Rotator */}
-              <div className="flex items-center gap-2 text-base sm:text-xl font-mono text-zinc-400 pt-1">
-                <span className="text-zinc-600">&gt;</span>
-                <span className="text-zinc-200">{roles[roleIndex]}</span>
-                <span className="animate-pulse text-indigo-400 font-mono">_</span>
-              </div>
-            </div>
-
-            {/* Description */}
-            <p className="text-base sm:text-lg text-zinc-300 max-w-xl leading-relaxed font-normal">
-              Computer Science student at Nalanda Institute of Technology, Bhubaneswar. Turning ideas into resilient software, exploring cybersecurity, and building practical systems for real-world impact.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-5 pt-3">
-              <a
-                href="#projects"
-                className="pill-link"
-              >
-                <span>Explore my work</span>
-                <ArrowDown className="w-4 h-4" />
-              </a>
-
-              <a
-                href="#contact"
-                className="text-link text-sm"
-              >
-                <span>Start a conversation</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-400" />
-              </a>
-            </div>
-
-            {/* Social Links Row */}
-            <div className="pt-6 border-t border-white/[0.08] flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-zinc-400">
-              <span className="text-zinc-500">Connect:</span>
-              <div className="flex items-center gap-4">
-                <a
-                  href={portfolioData.personal.socials.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <GithubIcon className="w-3.5 h-3.5" />
-                  <span>GitHub</span>
-                </a>
-                <a
-                  href={portfolioData.personal.socials.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <LinkedinIcon className="w-3.5 h-3.5" />
-                  <span>LinkedIn</span>
-                </a>
-                <a
-                  href={portfolioData.personal.socials.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <TwitterIcon className="w-3.5 h-3.5" />
-                  <span>Twitter</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right Column: Editorial Side Note widget (Sarthak Sharma style) */}
-          <div className="lg:col-span-4 flex justify-start lg:justify-end">
-            <div className="hidden lg:flex flex-col justify-between h-72 p-6 rounded-2xl bg-black/40 backdrop-blur-md border border-white/[0.08] text-xs font-mono uppercase tracking-widest text-zinc-400 max-w-xs w-full shadow-2xl">
-              <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-                <span>01 / Presence</span>
-                <span className="text-emerald-400 flex items-center gap-1">
-                  <span className="live-dot" /> Online
-                </span>
-              </div>
-
-              <div className="space-y-1.5 text-zinc-300">
-                <div className="text-white font-medium">Software Engineering</div>
-                <div>Java & Backend Systems</div>
-                <div>Cybersecurity Auditing</div>
-              </div>
-
-              <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between text-[11px] text-zinc-400">
-                <span>NIT Bhubaneswar</span>
-                <span className="text-zinc-300">Class of '28</span>
-              </div>
-            </div>
-          </div>
-
+      {/* Centered Hero Content (Overlaid on bottom half of the portrait) */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center text-center mt-auto pb-10 sm:pb-14">
+        
+        {/* Kicker */}
+        <div className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-zinc-400 mb-3 sm:mb-4 select-none">
+          A HUMAN PERSPECTIVE ON TECHNOLOGY
         </div>
 
+        {/* Giant Centered Headline with Italic Serif Accent */}
+        <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[7.5rem] xl:text-[8.5rem] font-medium tracking-tight text-white leading-[0.94] select-none">
+          Dipu{' '}
+          <span className="font-serif-italic bg-gradient-to-r from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent font-normal">
+            Gochhayat
+          </span>
+        </h1>
+
+        {/* Centered Description */}
+        <p className="mt-5 sm:mt-6 text-sm sm:text-base md:text-lg text-zinc-300 max-w-xl mx-auto leading-relaxed text-center font-normal px-2">
+          {portfolioData.personal.bio}
+        </p>
+
+        {/* Centered Action Buttons */}
+        <div className="mt-7 sm:mt-9 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          <a
+            href="#projects"
+            className="pill-link"
+          >
+            <span>Explore my work</span>
+            <ArrowDown className="w-4 h-4" />
+          </a>
+
+          <a
+            href="#contact"
+            className="text-link text-sm"
+          >
+            <span>Start a conversation</span>
+            <ArrowUpRight className="w-4 h-4 text-zinc-400" />
+          </a>
+        </div>
       </div>
 
       {/* Hero Bottom Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-10 border-t border-white/[0.08] mt-12">
-        <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono uppercase tracking-widest text-zinc-400">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-8 border-t border-white/[0.08]">
+        <div className="flex flex-wrap items-center justify-between gap-4 text-[10px] sm:text-xs font-mono uppercase tracking-widest text-zinc-400">
           <a href="#about" className="hover:text-white transition-colors flex items-center gap-2">
             <span className="w-4 h-[1px] bg-zinc-600 inline-block" />
             <span>Scroll to discover</span>
             <ArrowDown className="w-3.5 h-3.5" />
           </a>
-          <span className="hidden sm:inline">Building & Solving Since 2024</span>
-          <span className="text-zinc-300">CGPA: 8.15 ↗</span>
+          
+          <span className="hidden sm:inline text-zinc-500">
+            Nalanda Institute of Technology · Class of '28
+          </span>
+          
+          <div className="flex items-center gap-4">
+            <span className="text-zinc-300">CGPA: 8.15 ↗</span>
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded border border-white/10 bg-white/[0.02] text-[10px] tracking-wider text-zinc-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+              <span>MOTION ON</span>
+            </div>
+          </div>
         </div>
       </div>
+
     </section>
   );
 }
